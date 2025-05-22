@@ -1,0 +1,20 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev --port 3001",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@nuxt/icon": "^1.12.0",
+    "@tailwindcss/vite": "^4.1.6",
+    "nuxt": "^3.17.3",
+    "tailwindcss": "^4.1.6",
+    "vue": "latest",
+    "vue-router": "latest"
+  }
+}

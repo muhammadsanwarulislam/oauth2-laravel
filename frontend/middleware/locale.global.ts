@@ -1,0 +1,8 @@
+import { useLocale } from "~/composables/localization/useLocale";
+
+export default defineNuxtRouteMiddleware(async () => {
+    const { changeLocale } = useLocale();
+    const userLocale = useCookie('locale').value || 'en'; 
+    await changeLocale(userLocale);
+  });
+  

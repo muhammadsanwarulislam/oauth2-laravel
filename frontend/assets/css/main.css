@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+:root {
+  --fallback-color: rgb(255, 255, 255); 
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #1a202c;
+  color: #fff;
+}
