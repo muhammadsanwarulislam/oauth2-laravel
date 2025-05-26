@@ -27,6 +27,7 @@ This repository contains a full-stack web application built with a Nuxt.js front
 This project is a secure and scalable web application with two Nuxt.js frontends:
 
    **Admin Dashboard:** A management interface for administrators, accessible at http://localhost:3000.
+   
    **Client Frontend:** A user-facing interface for end users, accessible at http://localhost:3001.
 
 The Laravel backend provides a RESTful API for user authentication (via email or phone), data management, and OAuth 2.0 token-based access. It leverages the Repository Pattern for database operations, caching for performance in production, and standardized JSON responses for seamless integration with the frontend.
