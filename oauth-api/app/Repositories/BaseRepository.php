@@ -142,11 +142,6 @@ abstract class BaseRepository
         return [];
     }
 
-    public function getArrtibuteValueByColumnNameAndValue($columnName, $value)
-    {
-        return $this->model()::where($columnName, $value)->first();
-    }
-
     public function findByID($id): Model
     {
         $record = $this->model()::find($id);
@@ -190,7 +185,7 @@ abstract class BaseRepository
         return $model->delete();
     }
 
-    function updateByModelCondition($condition, $field, $value)
+    public function updateByModelCondition($condition, $field, $value)
     {
         return $this->model()::where($condition)->update([$field => $value]);
     }

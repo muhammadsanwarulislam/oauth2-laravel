@@ -1,31 +1,34 @@
-# Project Documentation: Nuxt.js and Laravel Application
+# Project Documentation: Nuxt.js and Laravel Application with OAuth 2.0
 
-This document provides a comprehensive guide to setting up and understanding a web application with a Nuxt.js frontend and a Laravel backend, integrated with OAuth 2.0 for secure authentication and authorization. It covers installation steps, database schema, table designs, and the operational flow of the system, serving as a detailed resource for developers.
+This repository contains a full-stack web application built with a Nuxt.js frontend and a Laravel backend, integrated with OAuth 2.0 for secure authentication and authorization. The application includes an admin dashboard and a client-facing frontend, powered by a robust Laravel RESTful API. The backend uses a relational database to manage users, OAuth clients, and tokens, ensuring scalability and security.
 
 ## Table of Contents
-1. [Installation Instructions](#installation-instructions)
+1. [Project Overview](#project-overview)
+2. [Installation Instructions](#installation-instructions)
    - [Admin Dashboard and Frontend (Nuxt.js)](#admin-dashboard-and-frontend-nuxtjs)
    - [Backend API (Laravel)](#backend-api-laravel)
-2. [Database Schema Explanation](#database-schema-explanation)
+3. [Database Schema Explanation](#database-schema-explanation)
    - [Users](#users)
    - [OAuth Clients](#oauth-clients)
    - [OAuth Access Tokens](#oauth-access-tokens)
    - [OAuth Client Credentials](#oauth-client-credentials)
    - [OAuth Authorization Codes](#oauth-authorization-codes)
    - [OAuth Refresh Tokens](#oauth-refresh-tokens)
-3. [Database Table Design](#database-table-design)
+4. [Database Table Design](#database-table-design)
    - [Table: users](#table-users)
    - [Table: oauth_clients](#table-oauth_clients)
    - [Table: oauth_access_tokens](#table-oauth_access_tokens)
    - [Table: oauth_client_credentials](#table-oauth_client_credentials)
    - [Table: oauth_auth_codes](#table-oauth_auth_codes)
    - [Table: oauth_refresh_tokens](#table-oauth_refresh_tokens)
-4. [Working Flow](#working-flow)
-   - [User Registration and Login](#user-registration-and-login)
-   - [OAuth Client Management](#oauth-client-management)
-   - [OAuth Authorization Flow](#oauth-authorization-flow)
-   - [Token Management](#token-management)
-   - [Database Interactions](#database-interactions)
+
+## Project Overview
+
+This project is a secure and scalable web application with two Nuxt.js frontends:
+   **Admin Dashboard:** A management interface for administrators, accessible at http://localhost:3000.
+   **Client Frontend:** A user-facing interface for end users, accessible at http://localhost:3001.
+
+The Laravel backend provides a RESTful API for user authentication (via email or phone), data management, and OAuth 2.0 token-based access. It leverages the Repository Pattern for database operations, caching for performance in production, and standardized JSON responses for seamless integration with the frontend.
 
 ## Installation Instructions
 
@@ -59,7 +62,7 @@ The Laravel backend uses a relational database to support user management and OA
 
 ### Users
 
-Stores user information for authentication and profile management.
+Stores user information for authentication.
 
 - `id`: Auto-incrementing primary key.
 - `name`: User's full name.
@@ -243,85 +246,5 @@ This section provides a detailed design of the database tables, including column
 - `access_token_id` references `oauth_access_tokens.id`.
 - `user_id` references `users.id`.
 - `client_id` references `oauth_clients.id`.
-
-## Working Flow
-
-This section explains the operational flow of the application, detailing how the system handles user authentication, OAuth client management, and token-based API access using an OAuth 2.0 framework.
-
-### User Registration and Login
-
-The `AuthController` manages user registration, login, logout, and information retrieval, interacting primarily with the `users` table and generating tokens in `oauth_access_tokens`.
-
-1. **Registration**:
-   - Users submit details (name, email, phone, password) via a registration request.
-   - The system hashes the password and stores the user in `users` (e.g., `INSERT INTO users (name, email, phone, password, created_at, updated_at) VALUES ('John Doe', 'john@example.com', '1234567890', '$2y$10$...', NOW(), NOW())`).
-   - Returns the user’s details.
-
-2. **Login**:
-   - Users log in with email or phone and password.
-   - The system verifies credentials in `users` (e.g., `SELECT * FROM users WHERE email = 'john@example.com' OR phone = '1234567890'`).
-   - If valid, generates an access token in `oauth_access_tokens` (e.g., `INSERT INTO oauth_access_tokens (id, user_id, client_id, expires_at, created_at, updated_at) VALUES ('token', user_id, client_id, NOW() + interval, NOW(), NOW())`).
-   - Returns the token and user details for API access.
-
-3. **Logout and User Info**:
-   - Logout invalidates the session (may revoke tokens in `oauth_access_tokens`).
-   - User info requests query `users` for authenticated user data or join `oauth_access_tokens` with `users` to fetch details using a valid token.
-
-### OAuth Client Management
-
-The `ClientController` handles the creation, retrieval, updating, and deletion of OAuth clients, stored in `oauth_clients`.
-
-1. **Create Client**:
-   - Admins create a client with details (name, redirect URI), stored in `oauth_clients` (e.g., `INSERT INTO oauth_clients (name, secret, redirect, created_at, updated_at) VALUES ('Client App', 'secret', 'https://redirect', NOW(), NOW())`).
-   - May link to `oauth_client_credentials` for client credentials grant.
-
-2. **Manage Clients**:
-   - List clients with pagination (`SELECT * FROM oauth_clients LIMIT limit OFFSET offset`).
-   - Retrieve, update, or delete clients by ID (e.g., `SELECT * FROM oauth_clients WHERE id = 'id'`, `UPDATE oauth_clients SET name = 'New Name' WHERE id = 'id'`, `DELETE FROM oauth_clients WHERE id = 'id'`).
-   - Deletion may cascade to related tables (`oauth_access_tokens`, `oauth_auth_codes`, `oauth_refresh_tokens`).
-
-### OAuth Authorization Flow
-
-The `AuthorizationController` manages the OAuth 2.0 authorization code grant, issuing authorization codes and tokens.
-
-1. **Authorize Client**:
-   - A client initiates authorization with a `client_id`.
-   - Retrieves client details from `oauth_clients` (e.g., `SELECT * FROM oauth_clients WHERE id = 'client_id'`).
-   - Displays client info for user approval.
-
-2. **Approve Authorization**:
-   - Upon approval, generates an authorization code in `oauth_auth_codes` (e.g., `INSERT INTO oauth_auth_codes (id, user_id, client_id, revoked, expires_at, created_at, updated_at) VALUES ('code', user_id, client_id, false, NOW() + interval, NOW(), NOW())`).
-   - Returns the code and redirect URI.
-
-3. **Generate Access Token**:
-   - The client exchanges the code for an access token.
-   - Verifies the code in `oauth_auth_codes` (e.g., `SELECT * FROM oauth_auth_codes WHERE id = 'code' AND revoked = false`).
-   - Creates tokens in `oauth_access_tokens` and `oauth_refresh_tokens` (e.g., `INSERT INTO oauth_access_tokens (id, user_id, client_id, refresh_token, expires_at) VALUES ('token', user_id, client_id, 'refresh_token', NOW() + interval)`).
-   - Marks the code as revoked (`UPDATE oauth_auth_codes SET revoked = true WHERE id = 'code'`).
-
-### Token Management
-
-The `AuthorizationController` handles token refresh and revocation, while the `VerifyAccessToken` middleware validates tokens.
-
-1. **Token Verification**:
-   - The middleware checks tokens in `oauth_access_tokens` (e.g., `SELECT * FROM oauth_access_tokens WHERE id = 'token' AND revoked = false AND expires_at > NOW()`).
-   - Allows access if valid; otherwise, returns a 401 error.
-
-2. **Refresh Token**:
-   - Clients submit a refresh token.
-   - Validates it in `oauth_access_tokens` (e.g., `SELECT * FROM oauth_access_tokens WHERE refresh_token = 'refresh_token' AND revoked = false`).
-   - Updates `oauth_access_tokens` with a new token (e.g., `UPDATE oauth_access_tokens SET id = 'new_token', expires_at = NOW() + interval WHERE id = 'old_token'`).
-
-3. **Revoke Tokens**:
-   - Revokes tokens for a user and client, updating `oauth_access_tokens`, `oauth_auth_codes`, and `oauth_refresh_tokens` (e.g., `UPDATE oauth_access_tokens SET revoked = true WHERE user_id = user_id AND client_id = 'client_id'`).
-
-### Database Interactions
-
-- **`users`**: Stores user credentials and links to tokens/codes via `user_id`.
-- **`oauth_clients`**: Holds client details, referenced by token and code tables.
-- **`oauth_access_tokens`**: Manages API access tokens, validated by middleware.
-- **`oauth_client_credentials`**: Supports client credentials grant (if used).
-- **`oauth_auth_codes`**: Stores temporary authorization codes for token exchange.
-- **`oauth_refresh_tokens`**: Enables token renewal, linked to access tokens.
 
 This flow ensures secure user authentication, client management, and API access using OAuth 2.0, with the database schema supporting all operations efficiently.
