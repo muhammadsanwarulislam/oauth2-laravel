@@ -32,7 +32,7 @@
             {{ item.id }}
           </td>
           <th scope="row" class="px-4 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-            {{ item.first_name }} {{ item.last_name }}
+            {{ item.name }}
           </th>
           <td class="px-4 py-4 text-left text-gray-900">
             {{ item.email }}

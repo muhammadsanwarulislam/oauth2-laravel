@@ -3,7 +3,7 @@
     <aside class="w-64 bg-white shadow-md flex-shrink-0 hidden lg:block">
         <div class="p-4">
             <div class="flex justify-center">
-                <Icon name="carbon:logo-red-hat-ai-instructlab-on-ibm-cloud" size="50" />
+                <Icon name="ic:twotone-dashboard" size="30" />
             </div>
             <div class="flex justify-center">
                 <h1 class="text-sm font-bold text-gray-700">Admin Dashboard</h1>
@@ -37,8 +37,6 @@ const props = defineProps({
 });
 
 const { menus } = useMenuItems();
-
-
 </script>
 
 <style scoped></style>

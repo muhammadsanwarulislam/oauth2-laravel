@@ -52,11 +52,10 @@ export function useCommonOperation() {
         method: "POST",
         body: form,
       });
-      
+      console.log('create response',response);
       itemList.unshift(response.data[responseKey]);
       
       if (response.code === 201) {
-
         isSuccess.value = true; 
         isValidation.value = false;
         message.value = response.message;
