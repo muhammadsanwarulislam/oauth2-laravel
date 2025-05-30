@@ -36,8 +36,7 @@
 <script setup>
 import { useOAuth } from "~/composables/sso/useOAuth";
 
-const { clientId, redirectUri, retrieveClientData, redirectToAuthorization } =
-  useOAuth();
+const { clientId, redirectUri, retrieveClientData } = useOAuth();
 
 onMounted(() => {
   retrieveClientData();

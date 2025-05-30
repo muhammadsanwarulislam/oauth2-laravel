@@ -10,30 +10,17 @@
 
     <!-- FAQ Items -->
     <div v-for="(faq, index) in faqs" :key="index" class="mb-4">
-      <div
-        @click="toggleFAQ(index)"
+      <div @click="toggleFAQ(index)"
         class="bg-white rounded-lg border border-[#78057c] p-5 cursor-pointer transition-all duration-300 hover:shadow-lg"
-        :class="{ 'bg-[#f9f9f9]': !faq.isOpen, 'shadow-md': faq.isOpen }"
-      >
+        :class="{ 'bg-[#f9f9f9]': !faq.isOpen, 'shadow-md': faq.isOpen }">
         <div class="flex justify-between items-center">
           <p class="text-black text-base font-semibold">
             {{ faq.question }}
           </p>
           <div class="ml-4 transform transition-transform duration-300" :class="{ 'rotate-180': faq.isOpen }">
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 18 18"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M4.5 6.75L9 11.25L13.5 6.75"
-                stroke="black"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="black" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
             </svg>
           </div>
         </div>
@@ -51,13 +38,13 @@
 // FAQ Data
 const faqs = ref([
   {
-    question: "Can I apply for a service without registration?",
-    answer: "In order to apply for Bangsamoro Portal services, you have to register using your mobile number or email. The information provided in the profile at the time of registration will not need to be re-entered later in the service application form.",
+    question: "What is OAuth2, and how does it work with this application?",
+    answer: "OAuth2 is an authorization framework that allows users to securely log in to our application using their existing credentials from supported providers (e.g., Google, Facebook). In this application, Laravel handles the server-side OAuth2 authentication, while Nuxt.js manages the front-end user experience, ensuring a seamless and secure login process.",
     isOpen: false,
   },
   {
-    question: "Can the prescribed service fee or payment be paid online or offline?",
-    answer: "Yes, you can pay the prescribed service fee either online through our secure payment gateway or offline at designated payment centers.",
+    question: "Do I need to install any software to use this application?",
+    answer: "No, you don’t need to install any software. This is a web-based application built with Laravel and Nuxt.js, accessible through any modern web browser on your computer or mobile device.",
     isOpen: false,
   },
   {
@@ -73,6 +60,4 @@ const toggleFAQ = (index) => {
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

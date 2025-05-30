@@ -5,68 +5,38 @@
     </label>
 
     <!-- Text Input -->
-    <input
-      v-if="!isSelect && type !== 'radio'"
-      :id="id"
-      :type="type"
-      :placeholder="placeholder"
-      :value="modelValue"
+    <input v-if="!isSelect && type !== 'radio'" :id="id" :type="type" :placeholder="placeholder" :value="modelValue"
       @input="updateValue($event.target.value)"
       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-fuchsia-900 focus:border-transparent"
-      :required="required"
-    />
+      :required="required" />
 
     <!-- Select Dropdown -->
-    <select
-      v-else-if="isSelect"
-      :id="id"
-      :value="modelValue"
-      @change="updateValue($event.target.value)"
+    <select v-else-if="isSelect" :id="id" :value="modelValue" @change="updateValue($event.target.value)"
       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-fuchsia-900 focus:border-transparent"
-      :required="required"
-    >
+      :required="required">
       <option selected disabled value="">{{ placeholder }}</option>
-      <option
-        v-for="(option, index) in options"
-        :key="index"
-        :value="option.value"
-      >
+      <option v-for="(option, index) in options" :key="index" :value="option.value">
         {{ option.label }}
       </option>
     </select>
 
     <!-- Radio Button Group -->
     <div v-else-if="type === 'radio'" class="flex space-x-4 mt-2">
-      <label
-        v-for="(option, index) in options"
-        :key="index"
-        class="flex items-center"
-      >
-        <input
-          :id="`${id}-${index}`"
-          type="radio"
-          :name="id"
-          :value="option.value"
-          :checked="modelValue === option.value"
-          @change="updateValue(option.value)"
-          class="w-4 h-4 text-fuchsia-900 bg-gray-100 border-gray-300 focus:ring-fuchsia-900"
-        />
+      <label v-for="(option, index) in options" :key="index" class="flex items-center">
+        <input :id="`${id}-${index}`" type="radio" :name="id" :value="option.value"
+          :checked="modelValue === option.value" @change="updateValue(option.value)"
+          class="w-4 h-4 text-fuchsia-900 bg-gray-100 border-gray-300 focus:ring-fuchsia-900" />
         <span class="ml-2 text-gray-700">{{ option.label }}</span>
       </label>
     </div>
 
     <!-- date input -->
-     <div v-else-if="type === 'date'" class="flex space-x-4 mt-2">
-      <input
-        :id="id"
-        type="date"
-        :value="modelValue"
-        @input="updateValue($event.target.value)"
+    <div v-else-if="type === 'date'" class="flex space-x-4 mt-2">
+      <input :id="id" type="date" :value="modelValue" @input="updateValue($event.target.value)"
         class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-fuchsia-900 focus:border-transparent"
-        :required="required"
-      />
+        :required="required" />
 
-     </div>
+    </div>
 
     <!-- Error Message Display -->
     <p v-if="errorMessage" class="text-red-500 text-sm mt-1">{{ errorMessage }}</p>
@@ -82,7 +52,7 @@ const props = defineProps({
   modelValue: { type: String, default: "" },
   required: { type: Boolean, default: false },
   isSelect: { type: Boolean, default: false },
-  options: { type: Array, default: () => [] }, 
+  options: { type: Array, default: () => [] },
   errorMessage: { type: String, default: "" },
 });
 

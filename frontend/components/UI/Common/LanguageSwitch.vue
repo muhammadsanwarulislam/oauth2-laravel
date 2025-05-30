@@ -2,26 +2,16 @@
   <div class="relative flex justify-center items-center space-x-2 cursor-pointer">
     <button
       class="hover:bg-fuchsia-800 hover:text-white rounded-md py-2 px-3 text-sm font-medium text-black flex items-center"
-      @click="toggleDropdown"
-    >
+      @click="toggleDropdown">
       {{ isEnglish ? "ENG" : "বাংলা" }}
-      <IconsLanguage class="ms-2"/>
+      <IconsLanguage class="ms-2" />
     </button>
-    <div
-      v-if="isDropdownOpen"
-      class="absolute top-10 bg-white shadow-lg rounded-md py-2 z-10"
-    >
+    <div v-if="isDropdownOpen" class="absolute top-10 bg-white shadow-lg rounded-md py-2 z-10">
       <ul>
-        <li
-          class="px-4 py-2 hover:bg-fuchsia-800 hover:text-white cursor-pointer"
-          @click="selectLanguage('en')"
-        >
+        <li class="px-4 py-2 hover:bg-fuchsia-800 hover:text-white cursor-pointer" @click="selectLanguage('en')">
           ENG
         </li>
-        <li
-          class="px-4 py-2 hover:bg-fuchsia-800 hover:text-white cursor-pointer"
-          @click="selectLanguage('bn')"
-        >
+        <li class="px-4 py-2 hover:bg-fuchsia-800 hover:text-white cursor-pointer" @click="selectLanguage('bn')">
           বাংলা
         </li>
       </ul>
