@@ -21,6 +21,7 @@ This repository contains a full-stack web application built with a Nuxt.js front
    - [Table: oauth_client_credentials](#table-oauth_client_credentials)
    - [Table: oauth_auth_codes](#table-oauth_auth_codes)
    - [Table: oauth_refresh_tokens](#table-oauth_refresh_tokens)
+5. [Screenshots](#screenshot)
 
 ## Project Overview
 
