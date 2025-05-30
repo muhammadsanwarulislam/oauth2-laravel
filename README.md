@@ -250,3 +250,14 @@ This section provides a detailed design of the database tables, including column
 - `client_id` references `oauth_clients.id`.
 
 This flow ensures secure user authentication, client management, and API access using OAuth 2.0, with the database schema supporting all operations efficiently.
+
+
+
+![alt text](https://github.com/muhammadsanwarulislam/oauth2-laravel/blob/main/screenshots/1.png?raw=true)
+![alt text](https://github.com/muhammadsanwarulislam/oauth2-laravel/blob/main/screenshots/2.png?raw=true)
+![alt text](https://github.com/muhammadsanwarulislam/oauth2-laravel/blob/main/screenshots/3.png?raw=true)
+![alt text](https://github.com/muhammadsanwarulislam/oauth2-laravel/blob/main/screenshots/4.png?raw=true)
+![alt text](https://github.com/muhammadsanwarulislam/oauth2-laravel/blob/main/screenshots/5.png?raw=true)
+![alt text](https://github.com/muhammadsanwarulislam/oauth2-laravel/blob/main/screenshots/6.png?raw=true)
+![alt text](https://github.com/muhammadsanwarulislam/oauth2-laravel/blob/main/screenshots/7.png?raw=true)
+![alt text](https://github.com/muhammadsanwarulislam/oauth2-laravel/blob/main/screenshots/8.png?raw=true)
