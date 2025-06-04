@@ -86,14 +86,6 @@ const {
 </script>
 
 <style scoped>
-.chart-container {
-  @apply w-full h-full;
-}
-
-.chart-wrapper {
-  @apply relative;
-}
-
 .tooltip {
   z-index: 100;
   pointer-events: none;

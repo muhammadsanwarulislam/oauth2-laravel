@@ -102,7 +102,5 @@ const {
 </script>
 
 <style scoped>
-.chart-svg {
-  @apply w-full;
-}
+
 </style>
