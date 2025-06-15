@@ -16,13 +16,13 @@
       </div>
   
       <!-- FAQs Slot (Optional) -->
-      <div v-if="showFaqs">
-        <slot name="faqs"></slot>
+      <div v-if="showFeatures">
+        <slot name="features"></slot>
       </div>
 
       <!-- User Manual -->
-      <div v-if="userManual">
-        <slot name="usermanual"></slot>
+      <div v-if="showCallToAction">
+        <slot name="calltoaction"></slot>
       </div>
   
       <!-- Footer -->
@@ -35,8 +35,8 @@
   <script setup>
   defineProps({
     showBanner: { type: Boolean, default: true },
-    showFaqs: { type: Boolean, default: true },
-    userManual: { type: Boolean, default: true },
+    showFeatures: { type: Boolean, default: true },
+    showCallToAction: { type: Boolean, default: true },
   });
   </script>
   

@@ -2,7 +2,6 @@
   <NuxtLink
     :to="to"
     :class="computedClass"
-    class="min-w-[120px] h-12 px-6 py-3 rounded flex justify-center items-center transition duration-300 text-center"
   >
     <span class="text-base font-normal leading-tight font-poppins">
       <slot />
@@ -10,7 +9,7 @@
   </NuxtLink>
 </template>
   
-  <script setup>
+<script setup>
 const props = defineProps({
   to: { type: String, required: true },
   variant: { type: String, default: "primary" },

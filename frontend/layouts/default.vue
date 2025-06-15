@@ -8,12 +8,12 @@
       <UICommonBanner name="default-banner" />
     </template>
 
-    <template v-if="showFaqs" #faqs>
-      <UICommonFaqs name="default-faqs" />
+    <template v-if="showFeatures" #features>
+      <UICommonFeatures name="default-features" />
     </template>
 
-    <template v-if="showUserManual" #usermanual>
-      <UICommonUserManual name="default-usermanual" />
+    <template v-if="showCallToAction" #calltoaction>
+      <UICommonCallToAction name="default-calltoaction" />
     </template>
     
     <slot></slot>
@@ -29,7 +29,7 @@ import BaseLayout from "./base.vue";
 const route = useRoute();
 
 const showBanner = computed(() => route.path === "/");
-const showFaqs = computed(() => route.path === "/");
-const showUserManual = computed(() => route.path === "/");
+const showFeatures = computed(() => route.path === "/");
+const showCallToAction = computed(() => route.path === "/");
 
 </script>
